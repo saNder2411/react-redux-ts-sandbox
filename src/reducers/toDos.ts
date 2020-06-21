@@ -1,6 +1,4 @@
-import { ToDo, FetchToDosAction } from '../actions';
-import { ActionTypes } from '../actions/types'
-
+import { ToDo, FetchToDosAction, ActionTypes } from '../actions';
 
 
 export const toDosReducer = (state: ToDo[] = [], action: FetchToDosAction): ToDo[] => {
