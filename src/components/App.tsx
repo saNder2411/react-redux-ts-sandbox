@@ -1,35 +1,27 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+import { ToDo, fetchToDos } from '../actions';
+import { StoreState } from '../reducers'
 
 interface AppProps {
- color?: string;
+ toDos: ToDo[],
+ fetchToDos(): any,
 }
 
-interface AppState {
-  counter: number;
-}
 
-export class App extends Component<AppProps, AppState> {
-
-  state = { counter: 0 };
-
-  onIncrement = ():void => {
-    this.setState((prevState: AppState): AppState => ({ counter: prevState.counter + 1 }));
-  };
-
-  onDecrement = ():void => {
-    this.setState((prevState: AppState): AppState => ({ counter: prevState.counter - 1 }));
-  };
-
+class _App extends Component<AppProps> {
   render() {
-    const { counter } = this.state;
 
     return (
       <div>
-        <button onClick={this.onIncrement}>Increment</button>
-        <button onClick={this.onDecrement}>Decrement</button>
-        {counter}
       </div>
     )
   }
 
 }
+
+const mapStateToProps = ({ toDos }: StoreState): { toDos: ToDo[] } => ({ toDos });
+
+
+export const App =  connect(mapStateToProps, { fetchToDos })(_App);
