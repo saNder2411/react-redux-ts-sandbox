@@ -1,7 +1,4 @@
 import { ToDo, Action, ActionTypes } from '../actions';
-import { stat } from 'fs';
-
-
 
 export const toDosReducer = (state: ToDo[] = [], action: Action): ToDo[] => {
 
