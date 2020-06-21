@@ -10,12 +10,17 @@ interface ToDo {
   completed: boolean,
 }
 
+interface FetchToDosAction {
+  type: ActionTypes.FETCH_TO_DOS_SUCCESS,
+  payload: ToDo[],
+}
+
 const url = 'https://jsonplaceholder.typicode.com/todos';
 
 export const fetchToDos = () => async (dispatch: Dispatch) => {
   const { data } = await Axios.get<ToDo[]>(url);
 
-  dispatch({
+  dispatch<FetchToDosAction>({
     type: ActionTypes.FETCH_TO_DOS_SUCCESS,
     payload: data,
   });
