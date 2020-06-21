@@ -10,11 +10,24 @@ interface AppProps {
  deletedToDo: typeof deletedToDo;
 }
 
+interface AppState {
+  fetching: boolean;
+}
 
-class _App extends Component<AppProps> {
+
+class _App extends Component<AppProps, AppState> {
+
+  state = { fetching: false };
+
+  componentDidUpdate(prevProps: AppProps): void {
+    if (!prevProps.toDos.length && this.props.toDos.length) {
+      this.setState({ fetching: false });
+    }
+  }
 
   onButtonClick = (): void => {
     this.props.fetchToDos();
+    this.setState({ fetching: true });
   };
 
   onTodoClick = (id: number): void => {
@@ -36,6 +49,7 @@ class _App extends Component<AppProps> {
     return (
       <div>
         <button onClick={this.onButtonClick}>Fetch</button>
+        <p>{this.state.fetching ? 'Loading...' : null}</p>
         {this.renderList()}
       </div>
     )
